@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http//mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace创建命名空间 -->
+<mapper namespace="com.gxa.dao.OrderInfoDao">
+	<!-- 插入订单信息 -->
+	<insert id="inserOrdertInfo" parameterType="OrderInfo">
+		INSERT into
+		orderinfo(orderNo,userId,goodsId,addressId,buyCount,orderStatus,payPrice,createTime)
+		values(#{orderNo},#{userInfo.userId},#{goods.goodsId},#{address.addressId},#{buyCount},#{orderStatus},#{payPrice},now())
+	</insert>
+	<!-- 根据用户购买的商品id查询订单 -->
+	<select id="selectOrderInfoByUserGoodsId">
+
+	</select>
+	<!-- 插入秒杀订单信息 -->
+	<insert id="insertMiaoshaorder" parameterType="MiaoShaorder">
+		INSERT into miaoshaorder(userId,goodsId,orderId)
+		values(#{userId},#{goodsId},#{orderId})
+	</insert>
+	<!-- 修改订单状态 -->
+	<update id="updateOrderInfo" parameterType="OrderInfo">
+		UPDATE orderInfo set
+		orderStatus=#{orderStatus},payTime=#{payTime},alipayNo=#{alipayNo}
+		where orderNo=#{orderNo}
+	</update>
+
+
+	<!-- 查询三个表的信息 -->
+	<resultMap id="OrderInfos" type="com.gxa.pojo.OrderInfo">
+		<!-- column是数据表中的,property是pojo的数据类型 -->
+		<id column="orderId" property="orderId" />
+		<result column="orderNo" property="orderNo" />
+		<result column="buyCount" property="buyCount" />
+		<result column="orderStatus" property="orderStatus" />
+		<result column="payPrice" property="payPrice" />
+		<result column="createTime" property="createTime" />
+		<result column="payTime" property="payTime" />
+		<result column="alipayNo" property="alipayNo" />
+		<association property="goods"
+			javaType="com.gxa.pojo.Goods">
+			<id column="goodsId" property="goodsId" />
+			<result column="goodsName" property="goodsName" />
+			<result column="goodsTitle" property="goodsTitle" />
+			<result column="goodsPrice" property="goodsPrice" />
+			<result column="goodsImg" property="goodsImg" />
+			<result column="goodsDesc" property="goodsDesc" />
+			<result column="goodsStock" property="goodsStock" />
+		</association>
+		<association property="address" column="addressId"
+				select="getAddress" javaType="com.gxa.pojo.Address" />
+		<association property="userInfo" column="userId"
+				select="getuserInfo" javaType="com.gxa.pojo.UserInfo" />
+	</resultMap>
+
+	<!-- 根据订单号查询订单 -->
+	<select id="selectorderId" resultMap="OrderInfos">
+		SELECT * from orderInfo inner join goods  where orderInfo.goodsId=goods.goodsId and orderNo=#{orderNo}
+	</select>
+	<!-- 查询地址信息 -->
+	<select id="getAddress" resultType="Address">
+	SELECT * from address where addressId=#{addressId}
+	</select>
+	<!-- 查询用户信息 -->
+	<select id="getuserInfo" resultType="UserInfo">
+	SELECT * from userInfo where userId=#{userID}
+	</select>
+	
+	<!--  根据订单号查询订单-->
+	<!-- <select id="selectorderId" resultType="OrderInfo">
+		SELECT * from orderInfo where orderNo=#{orderNo}
+	</select>  -->
+	
+	<!-- 查询三个表的信息 -->
+	<resultMap id="OrderInfoss" type="com.gxa.pojo.OrderInfo">
+		<!-- column是数据表中的,property是pojo的数据类型 -->
+		<id column="orderId" property="orderId" />
+		<result column="orderNo" property="orderNo" />
+		<result column="buyCount" property="buyCount" />
+		<result column="orderStatus" property="orderStatus" />
+		<result column="payPrice" property="payPrice" />
+		<result column="createTime" property="createTime" />
+		<result column="payTime" property="payTime" />
+		<result column="alipayNo" property="alipayNo" />
+		<association property="goods"
+			javaType="com.gxa.pojo.Goods">
+			<id column="goodsId" property="goodsId" />
+			<result column="goodsName" property="goodsName" />
+			<result column="goodsTitle" property="goodsTitle" />
+			<result column="goodsPrice" property="goodsPrice" />
+			<result column="goodsImg" property="goodsImg" />
+			<result column="goodsDesc" property="goodsDesc" />
+			<result column="goodsStock" property="goodsStock" />
+		</association>
+		<association property="address" column="addressId"
+				select="getAddress" javaType="com.gxa.pojo.Address" />
+		<association property="userInfo" column="userId"
+				select="getuserInfo" javaType="com.gxa.pojo.UserInfo" />
+	</resultMap>
+	<!-- 根据订单号查询订单 -->
+	<select id="selectUserOrder" resultMap="OrderInfoss">
+		SELECT * from orderInfo inner join goods  where orderInfo.goodsId=goods.goodsId and userId=#{userId}
+	</select>
+	
+	
+</mapper>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http//mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace创建命名空间 -->
+<mapper namespace="com.gxa.dao.GoodsDao">
+<!-- 数据查询 -->
+	<select id="GoodsShow" resultType="Goods">
+		SELECT * from goods
+	</select>
+
+	<!-- 添加地址-->
+	<insert id="GoodsInsurt" parameterType="Goods">
+		INSERT into goods(goodsName,goodsTitle,goodsPrice,goodsImg,goodsDesc,goodsStock,categoryId) values(#{goodsName},#{goodsTitle},#{goodsPrice},#{goodsImg},#{goodsDesc},#{goodsStock},#{categoryId})
+	</insert>
+	
+	<!-- 更新查询 -->
+	<update id="GoodsUpdate">
+		UPDATE goods set goodsName=#{goodsName},goodsTitle=#{goodsTitle},goodsPrice=#{goodsPrice},goodsImg=#{goodsImg},goodsDesc=#{goodsDesc},goodsStock=#{goodsStock},categoryId=#{categoryId} where goodsId=#{goodsId}
+	</update>
+
+	<!-- 删除 -->
+	<delete id="GoodsDel" parameterType="int">
+		DELETE from goods where goodsId=#{goodsId}
+	</delete>
+	
+	<!-- 查询两个表的信息 -->
+	<resultMap id="miaosha" type="com.gxa.pojo.MiaoShagoods">
+	<!-- column是数据表中的,property是pojo的数据类型 -->
+	<id column="miaoshagoodsId" property="miaoshagoodsId"/>
+	<result column="miaoshaStock" property="miaoshaStock"/>
+	<result column="miaoshaPrice" property="miaoshaPrice"/>
+	<result column="beginTime" property="beginTime"/>
+	<result column="endTime" property="endTime"/>
+	
+	<association property="goods" javaType="com.gxa.pojo.Goods">
+	<id column="goodsId" property="goodsId"/>
+	<result column="goodsName" property="goodsName"/>
+	<result column="goodsTitle" property="goodsTitle"/>
+	<result column="goodsPrice" property="goodsPrice"/>
+	<result column="goodsImg" property="goodsImg"/>
+	<result column="goodsDesc" property="goodsDesc"/>
+	<result column="goodsStock" property="goodsStock"/>
+	<association property="category" column="categoryId" select="getCategory" javaType="com.gxa.pojo.Category"/>
+	</association>
+	</resultMap>
+	
+	<select id="getCategory" resultType="Category">
+	SELECT * from category where categoryId=#{categoryId}
+	</select>
+	
+	<!-- 查询秒杀商品的信息 -->
+	<select id="MiaoShagoodsShow" resultMap="miaosha">
+	SELECT * from goods inner join miaoshagoods where goods.goodsId = miaoshagoods.goodsId
+	</select>
+	
+	<!-- 查询秒杀商品详情 -->
+	<select id="MiaoShaDesc" resultMap="miaosha">
+	SELECT * from goods inner join miaoshagoods where goods.goodsId = miaoshagoods.goodsId and miaoshagoods.goodsId=#{goodsId}
+	</select>
+	
+	<!-- 修改秒杀库存 -->
+	<update id="MiaoShaStock">
+	UPDATE miaoshagoods set miaoshaStock=miaoshaStock-1 WHERE goodsId=#{goodId}
+	</update>
+	
+</mapper>

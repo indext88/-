@@ -1,0 +1,286 @@
+<!--
+	Author: W3layouts
+
+-->
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>登录/注册</title>
+    <link rel="stylesheet" href="css/style_login.css">
+    <link href="css/popup-box.css" rel="stylesheet" type="text/css" media="all"/>
+    <!--<link href='//fonts.googleapis.com/css?family=Open+Sans:400,300italic,300,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+-->
+	<link rel="shortcut icon" th:href="@{/favicon.ico}" />
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="keywords"
+          content="Sign In And Sign Up Forms  Widget Responsive, Login Form Web Template, Flat Pricing Tables, Flat Drop-Downs, Sign-Up Web Templates, Flat Web Templates, Login Sign-up Responsive Web Template, Smartphone Compatible Web Template, Free Web Designs for Nokia, Samsung, LG, Sony Ericsson, Motorola Web Design"/>
+    <script type="application/x-javascript"> addEventListener("load", function () {
+        setTimeout(hideURLbar, 0);
+    }, false);
+
+    function hideURLbar() {
+        window.scrollTo(0, 1);
+    } </script>
+
+    <script type="text/javascript" th:inline="javascript">
+        /*<![CDATA[*/
+        ctxPath = /*[[@{/}]]*/ '';
+        /*]]>*/
+
+        console.info(ctxPath);
+    </script>
+    　　
+
+
+    <script th:src="@{/js/jquery.min.js}"></script>
+
+    <script th:src="@{/js/jquery.magnific-popup.js}"></script>
+    <script type="text/javascript" th:src="@{/js/modernizr.custom.53451.js}"></script>
+    <script th:src="@{/js/md5.js}" src="js/md5.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.popup-with-zoom-anim').magnificPopup({
+                type: 'inline',
+                fixedContentPos: false,
+                fixedBgPos: true,
+                overflowY: 'auto',
+                closeBtnInside: true,
+                preloader: false,
+                midClick: true,
+                removalDelay: 300,
+                mainClass: 'my-mfp-zoom-in'
+            });
+
+        });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+
+            $("#login_btn").click(function () {
+            	
+            	checkLogin();
+
+            });
+			
+            $(function(){
+                $(document).keypress(function (e){
+			            　　   if(e.keyCode == 13){
+			            　　　 //执行你想执行的方法，keyCode代表不同的按键　　  
+			                
+			            	   login_btn();
+			            　　   }
+                })
+                
+                
+                
+			     
+			      $("#Passwordsregest").keyup(function (e){
+			            　　  var Passwordregest = $("#Passwordregest").val();
+			        var Passwordregests = $("#Passwordsregest").val();
+			        
+			        if(Passwordregest!=Passwordregests){
+			        	document.getElementById("Passwordsregest").style.border="#f00 1px solid";
+			        }else{
+			        	document.getElementById("Passwordsregest").style.border="#000 1px solid";
+			        }
+			        
+			     })
+            })
+            function checkLogin() {
+	            var userName = $("#userName").val();
+	            var userPwd = $("#login_password").val();
+	            var verify_code=$("#verify_code").val();
+	        	var verifycode=$("#verifycode").val();
+	        	
+	        	//alert(verify_code+verifycode);
+	            if (userName.trim().length<1||userPwd.trim().length<1||verify_code.trim().length<1) {
+	               // $("#errorMsg").html("用户名不能为空");
+	               alert("用户名或密码不能为空");
+	            }else{
+	            	if(verify_code.toUpperCase()==verifycode.toUpperCase()){
+	            		console.log(verify_code+","+verifycode);
+	                	login_btn();
+	            	}else{
+	            		alert("验证码错误"+verify_code+","+verifycode);
+	            	}
+	            }
+	        }
+            function login_btn(){
+				
+				 var userName = $("#userName").val();
+	                var userPwd = $("#login_password").val();
+	            	var str = salt.charAt(1) + salt.charAt(0) + userPwd + salt.charAt(4) + salt.charAt(2);
+	            	
+	                userPwd = $.md5(str);
+	                $.ajax({
+	                    type: 'POST',
+	                    url: "user/doLogoin",
+	                    data: {
+	                        userName: userName,
+	                        userPwd: userPwd
+	                    },
+	                    success: function (data) {
+	                    	
+	                    	$("#userName").val("");
+	                    	$("#verify_code").val("");
+	                    	
+	                        // alert(data);
+	                        if (data != false) {
+	                            window.location.href = "index";
+	                        }else{
+	                        	window.location.href = "login";
+	                        }
+	                    }
+	                });
+				
+			}
+            
+            
+			$("#regestbtn").click(function () {
+
+                var userNameregest = $("#userNameregest").val();
+                var Passwordregest = $("#Passwordregest").val();
+                var Passwordregests = $("#Passwordsregest").val();
+                var userPhoneregest = $("#userPhoneregest").val();
+                var userEmailregest = $("#userEmailregest").val();
+                
+                if(Passwordregest!=Passwordregests){
+                	alert("密码不同");
+                }else{
+                	var str = salt.charAt(1) + salt.charAt(0) + Passwordregest + salt.charAt(4) + salt.charAt(2);
+                	  Passwordregest = $.md5(str);
+                	 $.ajax({
+                         type: 'POST',
+                         url: "user/regest",
+                         data: {
+                        	 Name: userNameregest,
+                        	 Password: Passwordregest,
+                        	 Phone: userPhoneregest,
+                             Email: userEmailregest
+                             
+                         },
+                         success: function (data) {
+                              alert(data);
+                             if (data != false) {
+                                 window.location.href = "login";
+                             }else{
+                             	window.location.href = "login";
+                             }
+                         }
+                     });
+                }
+            });
+                
+            
+        });
+
+        
+    </script>
+
+</head>
+<body>
+<h1>会员登陆/注册</h1>
+<div class="w3layouts" style="width: 32%;margin-left: 30%;">
+    <div class="signin-agile" style="width: 100%;border-radius: 30px;height: auto;padding-bottom: 30px;">
+        <h2>登录
+        </h2>
+        <!--			<form action="#" method="post">-->
+        <div class="form"></div>
+
+        <input type="text" id="userName" name="name" class="name" placeholder="用户名" >
+        <input type="password" id="login_password" name="password" class="password" placeholder="密码" >
+        
+        <div id="verify-code" style="
+    position: relative;
+">
+        
+        <input type="text" id="verify_code" style="margin-bottom: 0px;" placeholder="验证码" maxlength="4">
+        <input type="hidden" id="verifycode" value="B6NQ">
+        <!-- <em><span id="verifycode" style="font-size:20px;"></span></em> -->
+		<canvas id="code" width="90" height="40" style="border: 0px solid #000000;position: absolute;right: 0px;height: 100%;border-bottom-right-radius: 25px;border-top-right-radius: 25px;"></canvas>
+		
+        </div>
+        
+        <ul>
+            <li>
+                <label><span id="errorMsg" style="color:red"></span></label>
+            </li>
+        </ul>
+
+        <div class="clear"></div>
+        <input type="submit" id="login_btn" value="登录">
+        
+        <div class="zhuce" style="
+		    width: 100%;
+		    margin: 0 auto;
+		    text-align: center;
+		    margin-top: 5%;
+		">————<a class="popup-with-zoom-anim " data-wow-delay=".5s"
+           href="#small-dialog">没有账号？请注册</a>————</div>
+    </div>
+</div>
+<!-- <div class="signup-agileinfo">
+    <img width="450px" height="200px" th:src="@{/img/lo.jpg}">
+    <div class="more">
+        <a class="book popup-with-zoom-anim button-isi zoomIn animated" data-wow-delay=".5s"
+           href="#small-dialog">点击注册</a>
+    </div>
+</div>--> 
+<div class="clear"></div>
+
+<div class="footer-w3l">
+    <p class="agileinfo"> 2016登录和注册表单。版权所有 <a href="http://www.mycodes.net/" target="_blank">源码之家</a>
+    </p>
+</div>
+<div class="pop-up">
+    <div id="small-dialog" class="mfp-hide book-form" style="
+    border-radius: 30px;">
+        <h3>注册表单 </h3>
+        <!-- <form action="../regest" method="post"> -->
+            <input type="text" name="Name" id="userNameregest" placeholder="用户名" />
+            <input type="text" name="Email" id="userEmailregest" class="email" placeholder="邮件" />
+            <input type="text" name="Phone"  id="userPhoneregest" class="Phone" placeholder="联系电话" />
+            <input type="password" name="Password" id="Passwordregest" class="password" placeholder="密码" />
+            <input type="password" name="Passwords" id="Passwordsregest" class="password" placeholder="重复密码" />
+            <input type="submit" id="regestbtn" value="点击注册">
+        <!-- </form> -->
+    </div>
+</div>
+<body>
+
+	<script type="text/javascript" th:src="@{/js/verify-code.js}"></script>
+	<script>
+
+	window.onload = function(){
+		// var arr = [12,34,56]
+		// alert(typeof(arr));
+		// alert(typeof arr == 'array');
+		
+		// var str = "123";
+		
+		// alert(str[0]);
+
+
+		var verifyCode = randomCode();
+	    createVerifyCode("code",verifyCode);
+	    var kanbuq = document.getElementById("code");
+	    var span = document.getElementById("verifycode");
+	    span.value = verifyCode;
+
+	    kanbuq.onclick = function(){
+	          verifyCode = randomCode();
+	          createVerifyCode("code",verifyCode);
+			  span.value = verifyCode;
+	    };
+
+	}
+
+	</script>
+
+
+
+</html>

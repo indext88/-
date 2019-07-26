@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http//mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace创建命名空间 -->
+<mapper namespace="com.gxa.dao.UserInfoDao">
+	<!-- 数据查询 -->
+	<select id="Login" resultType="UserInfo">
+		SELECT * from userinfo where userName=#{username} and userPwd=#{password}
+	</select>
+	
+	<!-- 查询用户是否存在 -->
+	<select id="RegestUsername" resultType="UserInfo">
+		SELECT * from userinfo where userName=#{username} 
+	</select>
+	
+	<!-- 添加 -->
+	<insert id="Regest" parameterType="UserInfo">
+		INSERT into userinfo(userName,userPwd,userEmail,userPhone,lastLoginTime,registTime) values(#{userName},#{userPwd},#{userEmail},#{userPhone},now(),now())
+	</insert>
+	<!-- 修改最后登录时间 -->
+	<update id="updateLoginTime">
+	UPDATE userinfo set lastLoginTime=now() where userName=#{username}
+	</update>
+	
+</mapper>

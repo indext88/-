@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http//mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace创建命名空间 -->
+<mapper namespace="com.gxa.dao.AddressDao">
+	<!-- 数据查询 -->
+	<select id="addressesShow" resultType="Address">
+		SELECT * from address where userId=#{userId}
+	</select>
+	<!-- 查询地址表的地址Id -->
+	<select id="addressSelect" resultType="Address">
+	SELECT * from address where receiverName=#{receiverName} and receiverAddress=#{receiverAddress} and receiverPhone=#{receiverPhone} and userId=#{userInfo.userId}
+	</select>
+	<!-- 添加地址-->
+	<insert id="addressInsert" parameterType="Address">
+		INSERT into address(receiverName,receiverAddress,receiverPhone,postNo,userId) values(#{receiverName},#{receiverAddress},#{receiverPhone},#{postNo},#{userInfo.userId})
+	</insert>
+	
+	<!-- 更新查询 -->
+	<update id="addressUpdate">
+		UPDATE address set receiverName=#{receiverName},receiverAddress=#{receiverAddress},receiverPhone=#{receiverPhone},postNo=#{postNo},userId=#{userInfo.userId} where addressId=#{addressId}
+	</update>
+
+	<!-- 删除 -->
+	<delete id="addressDel" parameterType="int">
+		DELETE from address where addressId=#{addressId}
+	</delete>
+	
+	</mapper>
