@@ -1,4 +1,4 @@
-package com.gxa.controller;
+﻿package com.gxa.controller;
 
 import java.io.IOException;
 import java.util.Date;
@@ -57,19 +57,18 @@ public class PayController {
 
 	private final String APP_ID = "2016092400582883";
 	// 支付宝秘钥
-	private final String APP_PRIVATE_KEY = "MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCmcrnYfnKmQl0suqzCJ0qwmueqR8meH0ZNsaae9bcL7EWsJmPlVAho9CEtPQdESJKcLFd9xsy0+00zlwzL8gCSCaAFTRBH+cQNrlJLjIN2b3ddjJLbmPg+YWzHn9D19Mb/QtRfDJ4RJOqQ+276L9dNB/lhwQZW1B9KLF8DxRbkdnRKqIyxQU7f+y3GoNL83dZ+Z4Fg6Rz4N1eV/yylEYV4KXqgt8HjxRZnmBkfgF+9Izsa4MSwQsjEwmaGRa55I8AnXy0JPK00bM7vnepPjMEbsZvE2h1TdGosQ+tjR+CJCy8X8RK5U4GZCfYefGCANHRnl9mlNLXaniW1Y99ViZcLAgMBAAECggEAWSiBFk99WEOaJ1iDK6jiYEFJsLOtcu6ruPhdGS7jcxaHp5QU1IWzz4xdrR7QoqoBJni2EOCJTLSEAQt7Rk+GMLPJLK2/9935P57N5DwLO0iv9sNS8yA4cSm8nB2mT+ljIt6IZbWbgfF1WF3mb0trF48a7Vr460/Kxu+HobxT6+INp0AO2+ZXKP/0sxeAouqoqBj++bUylBMCdaC2Ccyqgv9WO4wgMw2q6PRftneBh5pnlnPegdhmLuDKmU2Hq3dh02S/gIpwVAWSFQqKSeOsUUDc0fDoQWkYcKWAgJfVFf5dJtXC6oTSr9deOJhcNqR0JeoHzjkORmq5TE7XMoeLgQKBgQDhAFINoaEl/rFa4Z5hmJF73AmFAbekI4aWSMDClNKVObgmKx7RnnQxEiVeetRW6ved1Mg5vtFKnmtYyzQg+sujdE6FyLNaUTHw8Gzz+M5MB9O2pt3qc48VPUlrk+hHR7pH+W0qcDiwZJeQdYo+UzN9Wkb8A/ufZomne1dd4oigywKBgQC9YURup0bvxyqG6EZq3ovJWXAzpKb1OQW8pt3DXq9mUzZrkAPkD90V2lmpAukDe216XbhOHKio3d5H1COQrircTyPp0Kn8yGUGGcKgLuYGQWJ6TKL9QE5jJfa0xE7z0iH3wk+I/H/52u6hT+a6xPkCs92ra3FHhUaK/tr40ONawQKBgQCLOtGLkdrQUhyZakfBiNFt3akeXwOuVDVyRa7SOZldsgvbwo8dk3m+68WoA0XmSxvS1NrZsNR94i33Ejc9uTPN/6ifbKRfXSMUPxKMnge6UJWXzwY/kCaYNAZ8xVfU0/PXmecNfcf2jyiiwbk7++w+w2BtjmFkL+U6eD6F4Co/pQKBgEX+UyqKjL9GX0NpSc1p30RV2BBeRI7RunsVOVViA3XQP4bVvXpnGpFfGFBNEQ4GaloVlW7ZTMTM68CkeViZ5qFyZpWeV5VkA2KT1skZTE73j4wgEwWC5PXkLCB3ha679W361SaOHEaeUiAwxdg1wMrs63rVxRJoAcCRnSDlI4KBAoGADyiN2e6TFuj1YGuhOArB2l6nvywqkSoiiv/LBpgAIjCBxrioacQFExjALRKaLK0bkQ1aEUK1hJ1+sdHklx7HEZCRlRV//y1y1frIcjbuxlM1gLpBIz3bPAiNYGGocaVOqlqV5YfklnGOXRz6Lkn1tBK3pwcATjj898jw4ihYGAc=";
-	private final String CHARSET = "UTF-8";
+	private final String APP_PRIVATE_KEY = "";
 	// 支付宝公钥
-	private final String ALIPAY_PUBLIC_KEY = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEApnK52H5ypkJdLLqswidKsJrnqkfJnh9GTbGmnvW3C+xFrCZj5VQIaPQhLT0HREiSnCxXfcbMtPtNM5cMy/IAkgmgBU0QR/nEDa5SS4yDdm93XYyS25j4PmFsx5/Q9fTG/0LUXwyeESTqkPtu+i/XTQf5YcEGVtQfSixfA8UW5HZ0SqiMsUFO3/stxqDS/N3WfmeBYOkc+DdXlf8spRGFeCl6oLfB48UWZ5gZH4BfvSM7GuDEsELIxMJmhkWueSPAJ18tCTytNGzO753qT4zBG7GbxNodU3RqLEPrY0fgiQsvF/ESuVOBmQn2HnxggDR0Z5fZpTS12p4ltWPfVYmXCwIDAQAB";
-	// 这是沙箱接口路径,正式路径为https://openapi.alipay.com/gateway.do
-	private final String GATEWAY_URL = "https://openapi.alipaydev.com/gateway.do";
+	private final String ALIPAY_PUBLIC_KEY = "";
+	// 这是沙箱接口路径
+	private final String GATEWAY_URL = "";
 	private final String FORMAT = "JSON";
 	// 签名方式
 	private final String SIGN_TYPE = "RSA2";
 	// 支付宝异步通知路径,付款完毕后会异步调用本项目的方法,必须为公网地址
-	private final String NOTIFY_URL = "http://localhost:8080/notifyUrl";
+	private final String NOTIFY_URL = "/notifyUrl";
 	// 支付宝同步通知路径,也就是当付款完毕后跳转本项目的页面,可以不是公网地址
-	private final String RETURN_URL = "http://localhost:8080/notify_url";
+	private final String RETURN_URL = "/notify_url";
 
 	// 调用支付宝支付的方法
 	@RequestMapping(value = "/alipay", method = RequestMethod.POST)
